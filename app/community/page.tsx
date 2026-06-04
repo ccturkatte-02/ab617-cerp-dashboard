@@ -695,7 +695,7 @@ export default function CommunityPage() {
           AB 617&apos;s Community Emission Reduction Plan Strategies
         </h1>
         <p className="mt-1 text-sm italic text-slate-600">
-          Working version as of June 4, 2026
+          Working version. Last updated: June 4, 2026
         </p>
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
