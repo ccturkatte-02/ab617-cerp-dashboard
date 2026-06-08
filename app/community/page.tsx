@@ -565,17 +565,22 @@ function ComparisonMatrix({
               colSpan={communities.length + 1}
               className="border-b border-slate-200 bg-slate-100 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600"
             >
-              Strategies Present
-              <span className="ml-2 font-normal normal-case tracking-normal">
-                {communities.some((community) => !community.isAll)
-                  ? "Total / Available Funding*"
-                  : "Total Funding"}
-              </span>
-              {communities.some((community) => !community.isAll) && (
-                <span className="ml-2 font-normal normal-case tracking-normal text-slate-500">
-                  *Only shown when available
+              <div>
+                Strategies Present
+                <span className="ml-2 font-normal normal-case tracking-normal">
+                  {communities.some((community) => !community.isAll)
+                    ? "Total / Available Funding*"
+                    : "Total Funding"}
                 </span>
-              )}
+                {communities.some((community) => !community.isAll) && (
+                  <span className="ml-2 font-normal normal-case tracking-normal text-slate-500">
+                    *Only shown when available
+                  </span>
+                )}
+              </div>
+              <div className="mt-1 font-normal normal-case italic tracking-normal text-slate-500">
+                Funding as of September 2025
+              </div>
             </td>
           </tr>
           {strategyNames.map((strategyName) => (
