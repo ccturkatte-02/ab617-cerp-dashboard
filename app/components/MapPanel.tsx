@@ -558,11 +558,11 @@ export default function MapPanel({ geojson, selectedIds, includedCommunitySlugs,
         )}
         <div className="mt-2 flex items-center gap-2">
           <span className="h-3 w-3 rounded-sm border-2 border-black bg-transparent" />
-          Included in the analysis
+          AB 617 Community included in the analysis
         </div>
         <div className="mt-1 flex items-center gap-2">
           <span className="h-3 w-3 rounded-sm border border-slate-500 bg-slate-400/60" />
-          Not included
+          AB 617 Community not included
         </div>
       </div>
     </div>
