@@ -695,7 +695,7 @@ export default function CommunityPage() {
           AB 617&apos;s Community Emission Reduction Plan Strategies
         </h1>
         <p className="mt-1 text-sm italic text-slate-600">
-          Working version. Last updated: June 4, 2026
+          Working version. Last updated: June 8, 2026
         </p>
         <div className="mt-4 w-full rounded-lg border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
           <p>
@@ -714,10 +714,10 @@ export default function CommunityPage() {
             Use the map to select up to three communities and compare their CERP
             strategies. The dashboard organizes each strategy by three
             implementation-informed criteria, with strategy details listed as
-            you scroll down. Turn on the CalEnviroScreen 4.0 checkbox on the
-            map to add that environmental justice layer. If you select three
-            communities, scroll the comparison table horizontally to view the
-            third community.
+            you scroll down. Turn on the CalEnviroScreen 4.0 checkbox in the
+            map&apos;s lower-left corner to view community characteristics. If you
+            select three communities, scroll the comparison table horizontally
+            to view the third community.
           </p>
         </div>
       </div>
