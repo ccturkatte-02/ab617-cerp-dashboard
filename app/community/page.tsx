@@ -23,6 +23,8 @@ type StrategyRow = {
   capacity_type?: string | null;
   scope_beneficiaries?: string | null;
   ease?: string | null;
+  progress?: string | null;
+  funding_notes?: string | null;
   funding?: {
     spent?: number;
     contracted?: number;
@@ -48,6 +50,7 @@ type StrategySummary = {
   hasFunding: boolean;
   hasAvailableFunding: boolean;
   hasAccessibleFundingRecords: boolean;
+  outsideFundingProgress: number | null;
   rowCount: number;
   subcategories: {
     name: string;
@@ -57,6 +60,7 @@ type StrategySummary = {
     hasFunding: boolean;
     hasAvailableFunding: boolean;
     hasAccessibleFundingRecords: boolean;
+    outsideFundingProgress: number | null;
   }[];
 };
 
@@ -109,6 +113,24 @@ const formatCurrency = (value: number) =>
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(value);
+
+const isOutsideFunding = (value: string | null | undefined) =>
+  value?.trim().toLowerCase() === "outside funding";
+
+const parseProgressPercent = (value: string | null | undefined) => {
+  if (!value) return null;
+  const normalized = value.trim().replace("%", "");
+  const number = Number(normalized);
+  if (!Number.isFinite(number)) return null;
+  return number <= 1 ? number * 100 : number;
+};
+
+const formatOutsideFundingProgress = (progress: number | null) => {
+  const percent = progress === null ? null : Math.round(progress);
+  return percent === null
+    ? "Complete with outside funding"
+    : `${percent}% complete with outside funding`;
+};
 
 const buildBreakdown = (
   rows: StrategyRow[],
@@ -219,6 +241,7 @@ const buildStrategySummaries = (rows: StrategyRow[]): StrategySummary[] => {
           hasFunding: boolean;
           hasAvailableFunding: boolean;
           hasAccessibleFundingRecords: boolean;
+          outsideFundingProgress: number | null;
         }
       >();
       let totalFunding = 0;
@@ -236,8 +259,19 @@ const buildStrategySummaries = (rows: StrategyRow[]): StrategySummary[] => {
           hasFunding: false,
           hasAvailableFunding: false,
           hasAccessibleFundingRecords: false,
+          outsideFundingProgress: null,
         };
         subcategorySummary.count += 1;
+
+        if (isOutsideFunding(row.funding_notes)) {
+          const progress = parseProgressPercent(row.progress);
+          if (progress !== null) {
+            subcategorySummary.outsideFundingProgress = Math.max(
+              subcategorySummary.outsideFundingProgress ?? 0,
+              progress
+            );
+          }
+        }
 
         const hasAccessibleRecord = row.ease?.trim().toLowerCase() !== "not included";
         if (hasAccessibleRecord) {
@@ -263,6 +297,9 @@ const buildStrategySummaries = (rows: StrategyRow[]): StrategySummary[] => {
 
         subcategorySummaries.set(subcategory, subcategorySummary);
       }
+      const outsideFundingProgresses = Array.from(subcategorySummaries.values())
+        .map((summary) => summary.outsideFundingProgress)
+        .filter((progress): progress is number => progress !== null);
 
       return {
         name,
@@ -270,8 +307,10 @@ const buildStrategySummaries = (rows: StrategyRow[]): StrategySummary[] => {
         availableFunding,
         hasFunding,
         hasAvailableFunding,
-          hasAccessibleFundingRecords,
-          rowCount: strategyRows.length,
+        outsideFundingProgress:
+          outsideFundingProgresses.length > 0 ? Math.max(...outsideFundingProgresses) : null,
+        hasAccessibleFundingRecords,
+        rowCount: strategyRows.length,
         subcategories: Array.from(subcategorySummaries.entries())
           .map(([subcategoryName, summary]) => ({ name: subcategoryName, ...summary }))
           .sort((a, b) => a.name.localeCompare(b.name)),
@@ -299,6 +338,9 @@ const buildSummaryBreakdowns = (rows: StrategyRow[]): SummaryBreakdown[] => [
 ];
 
 const formatStrategyFunding = (strategy: StrategySummary, showAvailableFunding = true) => {
+  if (strategy.outsideFundingProgress !== null) {
+    return formatOutsideFundingProgress(strategy.outsideFundingProgress);
+  }
   if (!strategy.hasAccessibleFundingRecords) return "No available funding records";
   if (!strategy.hasFunding) return "(no total funding listed)";
   if (showAvailableFunding && strategy.hasAvailableFunding) {
@@ -311,6 +353,9 @@ const formatSubcategoryFunding = (
   subcategory: StrategySummary["subcategories"][number],
   showAvailableFunding = true
 ) => {
+  if (subcategory.outsideFundingProgress !== null) {
+    return formatOutsideFundingProgress(subcategory.outsideFundingProgress);
+  }
   if (!subcategory.hasAccessibleFundingRecords) return "No available funding records";
   if (!subcategory.hasFunding) return "(no total funding listed)";
   if (showAvailableFunding && subcategory.hasAvailableFunding) {
