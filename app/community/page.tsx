@@ -106,6 +106,7 @@ const EASE_COLORS: Record<string, string> = {
   "3_difficult": "#d8b9f2",
 };
 const NOT_APPLICABLE_KEYS = new Set(["not_applicable", "not_included", "n_a", "na"]);
+const SAN_DIEGO_PORTSIDE_KEY = slug("San Diego Portside Environmental Justice Neighborhoods");
 
 const formatCurrency = (value: number) =>
   new Intl.NumberFormat("en-US", {
@@ -337,8 +338,12 @@ const buildSummaryBreakdowns = (rows: StrategyRow[]): SummaryBreakdown[] => [
   buildBreakdown(rows, "Ease of Implementation", SOFT_PURPLES, EASE_COLORS, (row) => row.ease),
 ];
 
-const formatStrategyFunding = (strategy: StrategySummary, showAvailableFunding = true) => {
-  if (strategy.outsideFundingProgress !== null) {
+const formatStrategyFunding = (
+  strategy: StrategySummary,
+  showAvailableFunding = true,
+  showOutsideFundingProgress = false
+) => {
+  if (showOutsideFundingProgress && strategy.outsideFundingProgress !== null) {
     return formatOutsideFundingProgress(strategy.outsideFundingProgress);
   }
   if (!strategy.hasAccessibleFundingRecords) return "No available funding records";
@@ -351,9 +356,10 @@ const formatStrategyFunding = (strategy: StrategySummary, showAvailableFunding =
 
 const formatSubcategoryFunding = (
   subcategory: StrategySummary["subcategories"][number],
-  showAvailableFunding = true
+  showAvailableFunding = true,
+  showOutsideFundingProgress = false
 ) => {
-  if (subcategory.outsideFundingProgress !== null) {
+  if (showOutsideFundingProgress && subcategory.outsideFundingProgress !== null) {
     return formatOutsideFundingProgress(subcategory.outsideFundingProgress);
   }
   if (!subcategory.hasAccessibleFundingRecords) return "No available funding records";
@@ -579,6 +585,9 @@ function ComparisonMatrix({
               </th>
               {analyses.map((analysis) => {
                 const strategy = analysis.strategiesByName.get(strategyName);
+                const showOutsideFundingProgress =
+                  !analysis.community.isAll &&
+                  slug(analysis.community.name) === SAN_DIEGO_PORTSIDE_KEY;
                 return (
                   <td
                     key={`${analysis.community.id}-${strategyName}`}
@@ -589,7 +598,11 @@ function ComparisonMatrix({
                     ) : (
                       <div className="space-y-2">
                         <div className="text-sm font-medium text-slate-900">
-                          {formatStrategyFunding(strategy, !analysis.community.isAll)}
+                          {formatStrategyFunding(
+                            strategy,
+                            !analysis.community.isAll,
+                            showOutsideFundingProgress
+                          )}
                         </div>
                         <details className="rounded-md border border-slate-200 bg-white">
                           <summary className="cursor-pointer px-2 py-1.5 text-xs font-medium text-slate-700">
@@ -610,7 +623,8 @@ function ComparisonMatrix({
                                 <div className="mt-0.5 text-slate-500">
                                   {formatSubcategoryFunding(
                                     subcategory,
-                                    !analysis.community.isAll
+                                    !analysis.community.isAll,
+                                    showOutsideFundingProgress
                                   )}
                                 </div>
                               </li>

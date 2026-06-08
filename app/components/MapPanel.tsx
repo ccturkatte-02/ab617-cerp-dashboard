@@ -78,6 +78,40 @@ const extendBounds = (bounds: maplibregl.LngLatBounds, position: Position) => {
   bounds.extend([lng, lat]);
 };
 
+const getRingArea = (ring: Position[]) =>
+  Math.abs(
+    ring.reduce((area, position, index) => {
+      const next = ring[(index + 1) % ring.length];
+      return area + position[0] * next[1] - next[0] * position[1];
+    }, 0) / 2
+  );
+
+const getPolygonArea = (polygon: Position[][]) =>
+  polygon.reduce((area, ring) => area + getRingArea(ring), 0);
+
+const keepMainCaliforniaBoundary = (
+  boundary: CaliforniaBoundaryGeoJson
+): CaliforniaBoundaryGeoJson => ({
+  ...boundary,
+  features: boundary.features.map((feature) => {
+    if (feature.geometry.type !== "MultiPolygon") return feature;
+
+    const mainPolygon = feature.geometry.coordinates.reduce<Position[][] | null>(
+      (largest, polygon) =>
+        !largest || getPolygonArea(polygon) > getPolygonArea(largest) ? polygon : largest,
+      null
+    );
+
+    return {
+      ...feature,
+      geometry: {
+        type: "Polygon",
+        coordinates: mainPolygon ?? [],
+      },
+    };
+  }),
+});
+
 const getFeatureBounds = (feature: CommunityGeoJson["features"][number]) => {
   const bounds = new maplibregl.LngLatBounds();
   const geometry = feature.geometry;
@@ -209,8 +243,9 @@ export default function MapPanel({ geojson, selectedIds, includedCommunitySlugs,
         return response.json() as Promise<CaliforniaBoundaryGeoJson>;
       })
       .then((boundary) => {
-        if (map.isStyleLoaded()) addBoundaryLayer(boundary);
-        else map.once("load", () => addBoundaryLayer(boundary));
+        const mainBoundary = keepMainCaliforniaBoundary(boundary);
+        if (map.isStyleLoaded()) addBoundaryLayer(mainBoundary);
+        else map.once("load", () => addBoundaryLayer(mainBoundary));
       })
       .catch((error) => {
         console.error("California boundary load failed:", error);
