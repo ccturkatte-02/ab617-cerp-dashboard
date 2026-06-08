@@ -697,12 +697,13 @@ export default function CommunityPage() {
         <p className="mt-1 text-sm italic text-slate-600">
           Working version. Last updated: June 4, 2026
         </p>
-        <div className="mt-4 max-w-4xl rounded-lg border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
+        <div className="mt-4 w-full rounded-lg border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
           <p>
-            Community Emission Reduction Plans from California&apos;s Assembly Bill
-            617 (AB 617) have generated valuable knowledge. The goal here is to
-            create comprehensive, accessible comparative analysis of which
-            strategies have worked best across different contexts.
+            Community Emission Reduction Plans (CERP) from California&apos;s
+            Assembly Bill 617 (AB 617) have generated valuable knowledge. The
+            goal here is to create comprehensive, accessible comparative
+            analysis of which strategies have worked best across different
+            contexts.
           </p>
           <p className="mt-3 font-semibold text-slate-900">
             The CERP Dashboard will inform, support, and empower community
