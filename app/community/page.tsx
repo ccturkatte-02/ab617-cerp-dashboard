@@ -697,6 +697,28 @@ export default function CommunityPage() {
         <p className="mt-1 text-sm italic text-slate-600">
           Working version. Last updated: June 4, 2026
         </p>
+        <div className="mt-4 max-w-4xl rounded-lg border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
+          <p>
+            Community Emission Reduction Plans from California&apos;s Assembly Bill
+            617 (AB 617) have generated valuable knowledge. The goal here is to
+            create comprehensive, accessible comparative analysis of which
+            strategies have worked best across different contexts.
+          </p>
+          <p className="mt-3 font-semibold text-slate-900">
+            The CERP Dashboard will inform, support, and empower community
+            members to improve their air quality - further uplifting the mission
+            of AB 617.
+          </p>
+          <p className="mt-3">
+            Use the map to select up to three communities and compare their CERP
+            strategies. The dashboard organizes each strategy by three
+            implementation-informed criteria, with strategy details listed as
+            you scroll down. Turn on the CalEnviroScreen 4.0 checkbox on the
+            map to add that environmental justice layer. If you select three
+            communities, scroll the comparison table horizontally to view the
+            third community.
+          </p>
+        </div>
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
         {/* Map */}
