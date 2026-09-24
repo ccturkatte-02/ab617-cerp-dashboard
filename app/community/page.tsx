@@ -769,15 +769,23 @@ export default function CommunityPage() {
             analysis of which strategies have worked best across different
             contexts.
           </p>
-          <p className="mt-3 font-semibold text-slate-900">
-            The CERP Dashboard will inform, support, and empower community
-            members to improve their air quality - further uplifting the mission
-            of AB 617. This dashboard is based on an analysis that is detailed in 
-            Turkatte et al. 2026, "Implementing Community-Centered Air Quality 
-            Law: Success Stories From California&apos;s Assembly Bill 617," 
-            published by the American Journal of Public Health. You can access the 
-            article with this link, 
-            https://ajph.aphapublications.org/doi/epdf/10.2105/AJPH.2026.308696. 
+          <p className="mt-3 text-slate-900">
+            <strong>
+              The CERP Dashboard will inform, support, and empower community members to
+              improve their air quality - further uplifting the mission of AB 617.
+            </strong>{" "}
+            This dashboard is based on an analysis that is detailed in Turkatte et al.
+            2026, "Implementing Community-Centered Air Quality Law: Success Stories From
+            California&apos;s Assembly Bill 617," published by the American Journal of
+            Public Health. You can access the article with this link,{" "}
+            <a
+              href="https://ajph.aphapublications.org/doi/epdf/10.2105/AJPH.2026.308696"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              Turkatte et al. 2026
+            </a>.
           </p>
           <p className="mt-3">
             Use the map to select up to three communities and compare their CERP
@@ -792,8 +800,17 @@ export default function CommunityPage() {
           <p className="mt-3">
             This dashboard will be finalized by the end of the year, and we 
             are accepting feedback on how this dashboard can best serve you and
-            and the greater public. We will accept feedback until November 1, 2026. 
-            Please fill out this form to give your feedback on the dashboard, https://forms.gle/4LZHgS9HTwwvBPBF9. 
+            the greater public. We will accept feedback until November 1, 2026. 
+            Please fill out{" "}
+            <a
+              href="https://forms.gle/4LZHgS9HTwwvBPBF9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              this form
+            </a>{" "}
+            to give your feedback on the dashboard.
           </p>
         </div>
       </div>
