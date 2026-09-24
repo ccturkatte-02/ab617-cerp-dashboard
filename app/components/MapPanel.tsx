@@ -144,7 +144,7 @@ export default function MapPanel({ geojson, selectedIds, includedCommunitySlugs,
   const homeBoundsRef = useRef<maplibregl.LngLatBoundsLike>(DEFAULT_CALIFORNIA_BOUNDS);
   const previousSelectedIdsRef = useRef<string[]>([]);
   const calEnviroScreenOpacityRef = useRef(45);
-  const [showCalEnviroScreen, setShowCalEnviroScreen] = useState(false);
+  const [showCalEnviroScreen, setShowCalEnviroScreen] = useState(true);
   const [calEnviroScreenOpacity, setCalEnviroScreenOpacity] = useState(45);
   const includedCommunities = useMemo(
     () => new Set(includedCommunitySlugs),
