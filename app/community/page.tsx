@@ -789,7 +789,7 @@ export default function CommunityPage() {
           </p>
           <p className="mt-3">
             <span className="underline">Instructions:</span>
-            Use the map to select up to three communities and compare their CERP
+             Use the map to select up to three communities and compare their CERP
             strategies. The dashboard organizes each strategy by three
             implementation-informed criteria, with strategy details listed as
             you scroll down. Turn on the CalEnviroScreen 4.0 checkbox in the
