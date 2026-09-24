@@ -759,7 +759,7 @@ export default function CommunityPage() {
           AB 617&apos;s Community Emission Reduction Plan Strategies
         </h1>
         <p className="mt-1 text-sm italic text-slate-600">
-          Working version. Last updated: June 8, 2026
+          Working version. Last updated: September 23, 2026
         </p>
         <div className="mt-4 w-full rounded-lg border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
           <p>
@@ -772,7 +772,12 @@ export default function CommunityPage() {
           <p className="mt-3 font-semibold text-slate-900">
             The CERP Dashboard will inform, support, and empower community
             members to improve their air quality - further uplifting the mission
-            of AB 617.
+            of AB 617. This dashboard is based on an analysis that is detailed in 
+            Turkatte et al. 2026, "Implementing Community-Centered Air Quality 
+            Law: Success Stories From California&apos;s Assembly Bill 617," 
+            published by the American Journal of Public Health. You can access the 
+            article with this link, 
+            https://ajph.aphapublications.org/doi/epdf/10.2105/AJPH.2026.308696. 
           </p>
           <p className="mt-3">
             Use the map to select up to three communities and compare their CERP
@@ -782,6 +787,13 @@ export default function CommunityPage() {
             map&apos;s lower-left corner to view community characteristics. If you
             select three communities, scroll the comparison table horizontally
             to view the third community.
+          </p>
+
+          <p className="mt-3">
+            This dashboard will be finalized by the end of the year, and we 
+            are accepting feedback on how this dashboard can best serve you and
+            and the greater public. We will accept feedback until November 1, 2026. 
+            Please fill out this form to give your feedback on the dashboard, https://forms.gle/4LZHgS9HTwwvBPBF9. 
           </p>
         </div>
       </div>
