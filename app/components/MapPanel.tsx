@@ -349,14 +349,20 @@ export default function MapPanel({ geojson, selectedIds, includedCommunitySlugs,
       return;
     }
 
-    fetch("/data/calenviroscreen40.geojson")
-      .then((response) => {
-        if (!response.ok) throw new Error(`calenviroscreen40.geojson HTTP ${response.status}`);
-        return response.json() as Promise<CalEnviroScreenGeoJson>;
-      })
-      .then((calEnviroScreen) => {
-        if (map.isStyleLoaded()) addCalEnviroScreenLayer(calEnviroScreen);
-        else map.once("load", () => addCalEnviroScreenLayer(calEnviroScreen));
+    const mapReady = map.isStyleLoaded()
+      ? Promise.resolve()
+      : new Promise<void>((resolve) => map.once("load", () => resolve()));
+
+    Promise.all([
+      mapReady,
+      fetch("/data/calenviroscreen40.geojson")
+        .then((response) => {
+          if (!response.ok) throw new Error(`calenviroscreen40.geojson HTTP ${response.status}`);
+          return response.json() as Promise<CalEnviroScreenGeoJson>;
+        }),
+    ])
+      .then(([, calEnviroScreen]) => {
+        addCalEnviroScreenLayer(calEnviroScreen);
       })
       .catch((error) => {
         console.error("CalEnviroScreen layer load failed:", error);
