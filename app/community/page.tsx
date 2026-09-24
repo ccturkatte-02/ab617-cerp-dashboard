@@ -759,7 +759,7 @@ export default function CommunityPage() {
           AB 617&apos;s Community Emission Reduction Plan Strategies
         </h1>
         <p className="mt-1 text-sm italic text-slate-600">
-          Working version. Last updated: September 23, 2026
+          Working version. Last updated: September 24, 2026
         </p>
         <div className="mt-4 w-full rounded-lg border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
           <p>
@@ -799,10 +799,11 @@ export default function CommunityPage() {
           </p>
 
           <p className="mt-3">
-            This dashboard will be finalized by the end of the year, and we 
-            are accepting feedback on how this dashboard can best serve you and
-            the greater public. We will accept feedback until November 1, 2026. 
-            Please fill out{" "}
+          The dashboard will be finalized by the end of the year, and we would 
+          really appreciate your feedback on how this dashboard can best serve 
+          you and the greater public. We'd like to know how you want to see it 
+          improved and what would make it easier to use. 
+            Please submit your feedback with{" "}
             <a
               href="https://forms.gle/4LZHgS9HTwwvBPBF9"
               target="_blank"
@@ -811,7 +812,7 @@ export default function CommunityPage() {
             >
               this form
             </a>{" "}
-            to give your feedback on the dashboard.
+            by November 1, 2026. 
           </p>
         </div>
       </div>
